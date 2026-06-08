@@ -6,11 +6,11 @@ const boutonsCoeur = document.querySelectorAll(".coeur");
 function calculerTotal() {
     let total = 0;
 
-    const articles = document.querySelectorAll(".article");
+    const articles = document.querySelectorAll(".produit");
 
     articles.forEach(article => {
-        let prix = parseInt(article.querySelector(".prix").textContent);
-        let quantite = parseInt(article.querySelector(".quantite").textContent);
+        const prix = parseInt(article.querySelector(".prix").textContent);
+        const quantite = parseInt(article.querySelector(".quantite").textContent);
 
         total += prix * quantite;
     });
@@ -18,19 +18,23 @@ function calculerTotal() {
     document.getElementById("total").textContent = total;
 }
 
+// Boutons +
 boutonsPlus.forEach(bouton => {
-    bouton.addEventListener("click", function() {
-        let quantite = this.parentElement.querySelector(".quantite");
+    bouton.addEventListener("click", function () {
+        const quantite = this.parentElement.querySelector(".quantite");
+
         quantite.textContent = parseInt(quantite.textContent) + 1;
+
         calculerTotal();
     });
 });
 
+// Boutons -
 boutonsMoins.forEach(bouton => {
-    bouton.addEventListener("click", function() {
-        let quantite = this.parentElement.querySelector(".quantite");
+    bouton.addEventListener("click", function () {
+        const quantite = this.parentElement.querySelector(".quantite");
 
-        if (parseInt(quantite.textContent) > 0) {
+        if (parseInt(quantite.textContent) > 1) {
             quantite.textContent = parseInt(quantite.textContent) - 1;
         }
 
@@ -38,17 +42,21 @@ boutonsMoins.forEach(bouton => {
     });
 });
 
+// Suppression d'un article
 boutonsSupprimer.forEach(bouton => {
-    bouton.addEventListener("click", function() {
+    bouton.addEventListener("click", function () {
         this.parentElement.remove();
+
         calculerTotal();
     });
 });
 
+// Bouton cœur
 boutonsCoeur.forEach(bouton => {
-    bouton.addEventListener("click", function() {
+    bouton.addEventListener("click", function () {
         this.classList.toggle("aime");
     });
 });
 
+// Calcul initial
 calculerTotal();
